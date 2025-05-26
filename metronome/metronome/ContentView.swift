@@ -10,11 +10,26 @@ import SwiftData
 
 struct ContentView: View {
     @StateObject var clock: Clock = Clock()
+    @State var bpmInput: String = ""
 
+    func validate(bpm: String) {}
+    
     var body: some View {
         ScrollView {
+            Form {
+                Section(header: Text("Input BPM")) {
+                    TextField("", text:  Binding<String>(
+                        get: { String($clock.bpm.wrappedValue)},
+                        set: { newValue in if let intValue = Int(newValue) {
+                            clock.updateTimeSignature(bpm: intValue)
+                        }}))
+                        .onSubmit {
+                            validate(bpm: bpmInput)
+                        }.disableAutocorrection(true)
+                }
+            }
             Button(action: $clock.running.wrappedValue ? clock.stop : clock.start) {
-                Label("Toggle clock", systemImage: clock.running ? "minus" : "plus")
+                Text("*")
                     .onChange(of: $clock.running.wrappedValue) { _ in
                     print("changed")
                 }

@@ -65,13 +65,13 @@ class Bus {
 
 class Clock: MutableInstance, ObservableObject {
     @Published var running: Bool
-    var paceMs: Double
-    var debouncer: Debouncer
+    @Published var bpm: Int
+    private var debouncer: Debouncer
     
     override init() {
-        self.paceMs = bpmToMs(bpm: 69)
+        self.bpm = 69
         self.running = false
-        self.debouncer = Debouncer(interval: TimeInterval(paceMs / 1000.0))
+        self.debouncer = Debouncer(interval: TimeInterval(bpmToMs(bpm: 69) / 1000.0))
     }
     
     func start() -> Void {
@@ -85,6 +85,7 @@ class Clock: MutableInstance, ObservableObject {
     }
     
     func updateTimeSignature(bpm: Int) -> Void {
-        paceMs = bpmToMs(bpm: bpm)
+        self.bpm = bpm
+        debouncer.interval = TimeInterval(bpmToMs(bpm: bpm) / 1000.0)
     }
 }
