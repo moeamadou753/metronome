@@ -39,20 +39,22 @@ class Observer {
 class Bus {
     var observers: [Observer]
     
-    init() {
+    init(initObservers: [Observer]) {
         self.observers = []
     }
     
-    func bindObservers() {
-        
+    func bindObservers(commitObservers: [Observer]) {
+        observers.append(contentsOf: commitObservers)
     }
     
     func notifyObservers() {
-        
+        for observer in observers {
+            observer.notify()
+        }
     }
     
     static func requestBeat() -> Void {
-        
+        print("boom")
     }
 }
 
