@@ -33,7 +33,15 @@ class AudioPlayer: ObservableObject {
         isPlaying = false
     }
     
-    func toggleAudioPlayer() {
+    func toggle() {
+        if (player !== nil) { return }
+            
+        if (isPlaying) {
+            player?.stop()
+        } else {
+            player?.play()
+        }
         
+        isPlaying = !isPlaying
     }
 }
