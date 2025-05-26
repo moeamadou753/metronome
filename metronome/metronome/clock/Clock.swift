@@ -25,6 +25,10 @@ class Debouncer {
             callback()
         }
     }
+    
+    func stop() -> Void {
+        timer?.invalidate()
+    }
 }
 
 class Observer {
@@ -47,7 +51,7 @@ class Bus {
         
     }
     
-    func requestBeat() {
+    static func requestBeat() -> Void {
         
     }
 }
@@ -55,18 +59,22 @@ class Bus {
 struct Clock {
     var paceMs: Int
     var running: Bool
+    var debouncer: Debouncer
     
     init() {
         self.paceMs = bpmToMs(bpm: 69)
         self.running = false
+        self.debouncer = Debouncer(interval: TimeInterval(paceMs))
     }
     
     mutating func start() -> Void {
         running = true
+        debouncer.debounce(callback:Bus.requestBeat)
     }
     
     mutating func stop() -> Void {
         running = false
+        debouncer.stop()
     }
     
     mutating func updateTimeSignature(bpm: Int) -> Void {
