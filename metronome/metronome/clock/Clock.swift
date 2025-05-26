@@ -12,7 +12,13 @@ func bpmToMs(bpm: Int) -> Int {
     return 25/6 * bpm;
 }
 
-class Debouncer {
+class MutableInstance {
+    func useEffect(on instance: inout MutableInstance, mutation:(inout  MutableInstance) -> Void) -> Void {
+        mutation(&instance)
+    }
+}
+
+class Debouncer: MutableInstance {
     var interval: TimeInterval
     var timer: Timer?
     
@@ -33,12 +39,6 @@ class Debouncer {
 
 class Observer {
     func notify() {}
-}
-
-class MutableInstance {
-    func useEffect(on instance: inout MutableInstance, mutation:(inout  MutableInstance) -> Void) -> Void {
-        mutation(&instance)
-    }
 }
 
 class Bus {
@@ -63,7 +63,7 @@ class Bus {
     }
 }
 
-struct Clock {
+class Clock: MutableInstance {
     var paceMs: Int
     var running: Bool
     var debouncer: Debouncer
@@ -74,19 +74,17 @@ struct Clock {
         self.debouncer = Debouncer(interval: TimeInterval(paceMs))
     }
     
-    mutating func start() -> Void {
+    func start() -> Void {
         running = true
         debouncer.debounce(callback:Bus.requestBeat)
     }
     
-    mutating func stop() -> Void {
+    func stop() -> Void {
         running = false
         debouncer.stop()
     }
     
-    mutating func updateTimeSignature(bpm: Int) -> Void {
+    func updateTimeSignature(bpm: Int) -> Void {
         paceMs = bpmToMs(bpm: bpm)
     }
-    
-    func useEffect(mutation: inout Clock() -> )
 }
