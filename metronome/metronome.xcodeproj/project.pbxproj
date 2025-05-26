@@ -15,6 +15,7 @@
 		DD11886A2DE4CF1300C2EF06 /* metronomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188692DE4CF1300C2EF06 /* metronomeTests.swift */; };
 		DD1188742DE4CF1300C2EF06 /* metronomeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188732DE4CF1300C2EF06 /* metronomeUITests.swift */; };
 		DD1188762DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188752DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift */; };
+		DD1188842DE4CFD300C2EF06 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188832DE4CFD300C2EF06 /* Clock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		DD11886F2DE4CF1300C2EF06 /* metronomeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = metronomeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD1188732DE4CF1300C2EF06 /* metronomeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metronomeUITests.swift; sourceTree = "<group>"; };
 		DD1188752DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metronomeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DD1188832DE4CFD300C2EF06 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		DD1188542DE4CF1200C2EF06 /* metronome */ = {
 			isa = PBXGroup;
 			children = (
+				DD1188822DE4CFBB00C2EF06 /* clock */,
 				DD1188552DE4CF1200C2EF06 /* metronomeApp.swift */,
 				DD1188572DE4CF1200C2EF06 /* ContentView.swift */,
 				DD1188592DE4CF1200C2EF06 /* Item.swift */,
@@ -130,6 +133,14 @@
 				DD1188752DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift */,
 			);
 			path = metronomeUITests;
+			sourceTree = "<group>";
+		};
+		DD1188822DE4CFBB00C2EF06 /* clock */ = {
+			isa = PBXGroup;
+			children = (
+				DD1188832DE4CFD300C2EF06 /* Clock.swift */,
+			);
+			path = clock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +275,7 @@
 			files = (
 				DD1188582DE4CF1200C2EF06 /* ContentView.swift in Sources */,
 				DD11885A2DE4CF1200C2EF06 /* Item.swift in Sources */,
+				DD1188842DE4CFD300C2EF06 /* Clock.swift in Sources */,
 				DD1188562DE4CF1200C2EF06 /* metronomeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
