@@ -36,11 +36,23 @@ struct ContentView: View {
                         .onSubmit {
                             validate(bpm: bpmInput)
                         }.disableAutocorrection(true)
+                        .onChange(of: $clock.bpm.wrappedValue) {
+                            bpmInput = String(clock.bpm)
+                        }
                 }
             }
             Button(action: $clock.running.wrappedValue ? clock.stop : clock.start) {
-                Text("*")
+                Text(">")
             } .frame(width:100, height:100, alignment: .center)
+            
+            HStack(alignment: .center) {
+                Button(action: {() in clock.incrementBpm(interval: 2)}) {
+                    Text("+2")
+                }
+                Button(action: {() in clock.decrementBpm(interval: 2)}) {
+                    Text("-2")
+                }
+            }
         }
         .frame(width: 200, height: 300)
     }

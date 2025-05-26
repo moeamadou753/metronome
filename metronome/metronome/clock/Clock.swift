@@ -111,4 +111,16 @@ class Clock: MutableInstance, ObservableObject {
             start()
         }
     }
+    
+    func incrementBpm(interval: Int) -> Void {
+        if (bpm <= (300 - interval)) {
+            updateTimeSignature(bpm: bpm + interval)
+        }
+    }
+    
+    func decrementBpm(interval: Int) -> Void {
+        if (bpm >= (1 + interval)) {
+            updateTimeSignature(bpm: bpm - interval)
+        }
+    }
 }
