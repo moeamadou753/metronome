@@ -35,6 +35,11 @@ class Observer {
     func notify() {}
 }
 
+class MutableInstance {
+    func useEffect(on instance: inout MutableInstance, mutation:(inout  MutableInstance) -> Void) -> Void {
+        mutation(&instance)
+    }
+}
 
 class Bus {
     var observers: [Observer]
@@ -82,4 +87,6 @@ struct Clock {
     mutating func updateTimeSignature(bpm: Int) -> Void {
         paceMs = bpmToMs(bpm: bpm)
     }
+    
+    func useEffect(mutation: inout Clock() -> )
 }
