@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @StateObject var clock: Clock = Clock()
-    @StateObject var audioPlayer: AudioPlayer = AudioPlayer()
 
     var body: some View {
         ScrollView {

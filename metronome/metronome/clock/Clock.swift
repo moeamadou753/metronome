@@ -59,7 +59,7 @@ class Bus {
     }
     
     static func requestBeat() -> Void {
-        print("boom")
+        AudioPlayer.beat()
     }
 }
 

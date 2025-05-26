@@ -16,33 +16,19 @@ func resolveSound(relativePath: String, audioType: String) -> String? {
     return Bundle.main.path(forResource: "quartz-metronome", ofType: audioType, inDirectory: "audio")
 }
 
+var AUDIO_PLAYER: AVAudioPlayer?
 
-class AudioPlayer: ObservableObject {
-    var player: AVAudioPlayer?
-    @Published var isPlaying: Bool
-    
-    init() {
+class AudioPlayer {
+    static func beat() {
         if let sound = resolveSound(relativePath: DEFAULT_METRONOME_PATH, audioType: DEFAULT_METRONOME_TYPE) {
             do {
-                player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
+                AUDIO_PLAYER = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
+                AUDIO_PLAYER?.play()
             } catch {
                 print("Error processing audio path / type.")
             }
         } else {
             print("Invalid audio path / type received.")
         }
-        isPlaying = false
-    }
-    
-    func toggle() {
-        if (player !== nil) { return }
-            
-        if (isPlaying) {
-            player?.stop()
-        } else {
-            player?.play()
-        }
-        
-        isPlaying = !isPlaying
     }
 }
