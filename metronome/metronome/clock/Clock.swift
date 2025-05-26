@@ -30,6 +30,7 @@ class Debouncer: MutableInstance {
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [callback] _ in
             callback()
         }
+        timer?.fire()
     }
     
     func stop() -> Void {
@@ -71,7 +72,7 @@ class Clock: MutableInstance, ObservableObject {
     override init() {
         self.paceMs = bpmToMs(bpm: 69)
         self.running = false
-        self.debouncer = Debouncer(interval: TimeInterval(paceMs))
+        self.debouncer = Debouncer(interval: TimeInterval(paceMs / 1000))
     }
     
     func start() -> Void {
