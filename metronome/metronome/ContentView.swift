@@ -31,7 +31,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             Form {
-                Section(header: Text("Input BPM")) {
+                Section(header: Text("BPM")) {
                     TextField("", text: $bpmInput)
                         .onSubmit {
                             validate(bpm: bpmInput)
