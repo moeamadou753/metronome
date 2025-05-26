@@ -63,24 +63,24 @@ class Bus {
     }
 }
 
-class Clock: MutableInstance {
+class Clock: MutableInstance, ObservableObject {
+    @Published var running: Bool
     var paceMs: Int
-    var running: Bool
     var debouncer: Debouncer
     
-    init() {
+    override init() {
         self.paceMs = bpmToMs(bpm: 69)
         self.running = false
         self.debouncer = Debouncer(interval: TimeInterval(paceMs))
     }
     
     func start() -> Void {
-        running = true
+        self.running = true
         debouncer.debounce(callback:Bus.requestBeat)
     }
     
     func stop() -> Void {
-        running = false
+        self.running = false
         debouncer.stop()
     }
     

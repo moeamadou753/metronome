@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @StateObject var clock: Clock = Clock()
 
     var body: some View {
         NavigationSplitView {
@@ -40,7 +41,12 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            Text("Select an item")
+            Button(action: $clock.running.wrappedValue ? clock.stop : clock.start) {
+                Label("Toggle clock", systemImage: clock.running ? "minus" : "plus")
+                    .onChange(of: $clock.running.wrappedValue) { _ in
+                    print("changed")
+                }
+            }
         }
     }
 
