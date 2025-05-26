@@ -8,11 +8,12 @@
 import Foundation
 import AVFoundation
 
-let DEFAULT_METRONOME_PATH: String = "audio/clicks/quartz-metronome"
-let DEFAULT_METRONOME_TYPE: String = ".wav"
+
+var DEFAULT_METRONOME_PATH = "quartz-metronome"
+var DEFAULT_METRONOME_TYPE: String = ".wav"
 
 func resolveSound(relativePath: String, audioType: String) -> String? {
-    return Bundle.main.path(forResource: relativePath, ofType: audioType)
+    return Bundle.main.path(forResource: "quartz-metronome", ofType: audioType, inDirectory: "audio")
 }
 
 

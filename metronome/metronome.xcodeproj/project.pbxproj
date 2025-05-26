@@ -17,6 +17,7 @@
 		DD1188762DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188752DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift */; };
 		DD1188842DE4CFD300C2EF06 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1188832DE4CFD300C2EF06 /* Clock.swift */; };
 		DDB640172DE5059300462C76 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB640162DE5059300462C76 /* AudioPlayer.swift */; };
+		DDB640272DE51C1500462C76 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = DDB640262DE51C1500462C76 /* audio */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +52,7 @@
 		DD1188752DE4CF1300C2EF06 /* metronomeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metronomeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DD1188832DE4CFD300C2EF06 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		DDB640162DE5059300462C76 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
-		DDB6401A2DE5078600462C76 /* quartz-metronome.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "quartz-metronome.wav"; path = "../../../../../../Downloads/Metronomes/quartz-metronome.wav"; sourceTree = "<group>"; };
+		DDB640262DE51C1500462C76 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +103,7 @@
 		DD1188542DE4CF1200C2EF06 /* metronome */ = {
 			isa = PBXGroup;
 			children = (
-				DDB640182DE5074400462C76 /* audio */,
+				DDB640262DE51C1500462C76 /* audio */,
 				DD1188822DE4CFBB00C2EF06 /* clock */,
 				DD1188552DE4CF1200C2EF06 /* metronomeApp.swift */,
 				DD1188572DE4CF1200C2EF06 /* ContentView.swift */,
@@ -146,22 +147,6 @@
 				DD1188832DE4CFD300C2EF06 /* Clock.swift */,
 			);
 			path = clock;
-			sourceTree = "<group>";
-		};
-		DDB640182DE5074400462C76 /* audio */ = {
-			isa = PBXGroup;
-			children = (
-				DDB640192DE5074F00462C76 /* clicks */,
-			);
-			path = audio;
-			sourceTree = "<group>";
-		};
-		DDB640192DE5074F00462C76 /* clicks */ = {
-			isa = PBXGroup;
-			children = (
-				DDB6401A2DE5078600462C76 /* quartz-metronome.wav */,
-			);
-			path = clicks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDB640272DE51C1500462C76 /* audio in Resources */,
 				DD1188602DE4CF1300C2EF06 /* Preview Assets.xcassets in Resources */,
 				DD11885C2DE4CF1300C2EF06 /* Assets.xcassets in Resources */,
 			);
