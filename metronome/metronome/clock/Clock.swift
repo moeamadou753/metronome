@@ -7,9 +7,8 @@
 
 import Foundation
 
-func bpmToMs(bpm: Int) -> Int {
-    // 120 BPM = 500ms / quarter
-    return 25/6 * bpm;
+func bpmToMs(bpm: Int) -> Double {
+    return 60000.0 / Double(bpm);
 }
 
 class MutableInstance {
@@ -66,13 +65,13 @@ class Bus {
 
 class Clock: MutableInstance, ObservableObject {
     @Published var running: Bool
-    var paceMs: Int
+    var paceMs: Double
     var debouncer: Debouncer
     
     override init() {
         self.paceMs = bpmToMs(bpm: 69)
         self.running = false
-        self.debouncer = Debouncer(interval: TimeInterval(paceMs / 1000))
+        self.debouncer = Debouncer(interval: TimeInterval(paceMs / 1000.0))
     }
     
     func start() -> Void {
