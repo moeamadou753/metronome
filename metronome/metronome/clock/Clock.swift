@@ -20,12 +20,14 @@ class MutableInstance {
 class Debouncer: MutableInstance {
     var interval: TimeInterval
     var timer: Timer?
+    var callback: () -> Void
     
-    init (interval: TimeInterval) {
+    init (interval: TimeInterval, cb: @escaping () -> Void) {
         self.interval = interval
+        self.callback = cb
     }
     
-    func debounce(callback: @escaping () -> Void) -> Void {
+    func start() -> Void {
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [callback] _ in
             callback()
         }
@@ -34,6 +36,11 @@ class Debouncer: MutableInstance {
     
     func stop() -> Void {
         timer?.invalidate()
+    }
+    
+    func restart() -> Void {
+        stop()
+        start()
     }
 }
 
@@ -71,12 +78,17 @@ class Clock: MutableInstance, ObservableObject {
     override init() {
         self.bpm = 69
         self.running = false
-        self.debouncer = Debouncer(interval: TimeInterval(bpmToMs(bpm: 69) / 1000.0))
+        self.debouncer = Debouncer(interval: TimeInterval(bpmToMs(bpm: 69) / 1000.0), cb:Bus.requestBeat)
     }
     
     func start() -> Void {
-        self.running = true
-        debouncer.debounce(callback:Bus.requestBeat)
+        if (self.running) {
+            restart()
+        } else {
+            self.running = true
+            debouncer.start()
+        }
+        
     }
     
     func stop() -> Void {
@@ -84,8 +96,19 @@ class Clock: MutableInstance, ObservableObject {
         debouncer.stop()
     }
     
+    func restart() {
+        stop()
+        start()
+    }
+    
     func updateTimeSignature(bpm: Int) -> Void {
         self.bpm = bpm
         debouncer.interval = TimeInterval(bpmToMs(bpm: bpm) / 1000.0)
+        
+        if (self.running) {
+            restart()
+        } else {
+            start()
+        }
     }
 }

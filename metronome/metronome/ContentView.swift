@@ -12,17 +12,27 @@ struct ContentView: View {
     @StateObject var clock: Clock = Clock()
     @State var bpmInput: String = ""
 
-    func validate(bpm: String) {}
+    init() {
+        _bpmInput = State(initialValue: String($clock.bpm.wrappedValue))
+    }
+    
+    func validate(bpm: String) {
+        let intValue = Int(bpm)
+        
+        if (intValue == nil) {
+            return
+        }
+        
+        if (intValue! > 0 && intValue! < 500) {
+            clock.updateTimeSignature(bpm: intValue!)
+        }
+    }
     
     var body: some View {
         ScrollView {
             Form {
                 Section(header: Text("Input BPM")) {
-                    TextField("", text:  Binding<String>(
-                        get: { String($clock.bpm.wrappedValue)},
-                        set: { newValue in if let intValue = Int(newValue) {
-                            clock.updateTimeSignature(bpm: intValue)
-                        }}))
+                    TextField("", text: $bpmInput)
                         .onSubmit {
                             validate(bpm: bpmInput)
                         }.disableAutocorrection(true)
@@ -30,9 +40,6 @@ struct ContentView: View {
             }
             Button(action: $clock.running.wrappedValue ? clock.stop : clock.start) {
                 Text("*")
-                    .onChange(of: $clock.running.wrappedValue) { _ in
-                    print("changed")
-                }
             } .frame(width:100, height:100, alignment: .center)
         }
         .frame(width: 200, height: 300)
