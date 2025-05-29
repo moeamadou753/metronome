@@ -8,6 +8,9 @@
 import SwiftUI
 import SwiftData
 
+let MAX_BPM = 500
+let MIN_BPM = 1
+
 struct ContentView: View {
     @StateObject var clock: Clock = Clock()
     @State var bpmInput: String = ""
@@ -25,7 +28,7 @@ struct ContentView: View {
             return false
         }
         
-        if (intValue! > 0 && intValue! < 500) {
+        if (intValue! > MIN_BPM && intValue! < MAX_BPM) {
             clock.updateTimeSignature(bpm: intValue!)
             return true
         }
@@ -39,6 +42,10 @@ struct ContentView: View {
         if (intValue > 0 && intValue < 500) {
             clock.updateTimeSignature(bpm: intValue)
         }
+    }
+    
+    var dialDragGesture: some Gesture {
+        DragGesture()
     }
     
     var body: some View {
@@ -56,6 +63,8 @@ struct ContentView: View {
                         }
                 }
             }
+            Circle()
+                .gesture(dialDragGesture)
             Slider(value: $sliderValue,
                    in: 1...300, step: 1,
                    onEditingChanged: { isEditing in if (!isEditing) { validate(bpm: sliderValue)}}
