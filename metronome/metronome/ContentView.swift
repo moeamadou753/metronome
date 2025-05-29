@@ -11,6 +11,16 @@ import SwiftData
 let MAX_BPM = 500
 let MIN_BPM = 1
 
+func bpmValueToAngle(bpm: Double) -> Double {
+    let clampedBPM: Double = min(max(bpm, Double(MIN_BPM)), Double(MAX_BPM))
+    return ((clampedBPM - 1) / (MAX_BPM - MIN_BPM)) * (360 - 0) + 0
+}
+
+func angleToBpmValue(angle: Double) -> Double {
+    let clampedAngle: Double = min(max(angle, 0.0), 360.0)
+    return ((clampedAngle - 0) / (360 - 0)) * (500 - 1) + 1
+}
+
 struct ContentView: View {
     @StateObject var clock: Clock = Clock()
     @State var bpmInput: String = ""
