@@ -55,7 +55,7 @@ struct ContentView: View {
     }
     
     var dialDragGesture: some Gesture {
-        DragGesture()
+        DragGesture(minimumDistance: 0.0, coordinateSpace: .local)
     }
     
     var body: some View {
