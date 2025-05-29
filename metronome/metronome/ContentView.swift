@@ -21,10 +21,15 @@ func angleToBpmValue(angle: Double) -> Double {
     return ((clampedAngle - 0) / (360 - 0)) * (500 - 1) + 1
 }
 
+func angleFromDragTranslation(startPoint: CGPoint, endPoint: CGPoint) -> Double {
+    return 0.0
+}
+
 struct ContentView: View {
     @StateObject var clock: Clock = Clock()
     @State var bpmInput: String = ""
     @State var sliderValue: Double = 0
+    @State var startDragValue: CGPoint
     
     init() {
         _bpmInput = State(initialValue: String(clock.bpm))
@@ -56,6 +61,13 @@ struct ContentView: View {
     
     var dialDragGesture: some Gesture {
         DragGesture(minimumDistance: 0.0, coordinateSpace: .local)
+            .onChanged(dragValue in
+                    var angleDelta = angleFromDragTranslation(startDragValue, @escaped dragValue)
+                    var bpmDelta = angleToBpmValue(angle: angleDelta)
+                    var newBpm = clock.bpm + bpmDelta
+                    clock.updateTimeSignature(bpm: newBpm)
+                )
+            
     }
     
     var body: some View {
