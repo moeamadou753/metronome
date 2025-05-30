@@ -13,7 +13,7 @@ let MIN_BPM = 1
 
 func bpmValueToAngle(bpm: Double) -> Double {
     let clampedBPM: Double = min(max(bpm, Double(MIN_BPM)), Double(MAX_BPM))
-    return ((clampedBPM - 1) / (MAX_BPM - MIN_BPM)) * (360 - 0) + 0
+    return ((clampedBPM - 1.0) / Double(MAX_BPM - MIN_BPM)) * (360 - 0) + 0
 }
 
 func angleToBpmValue(angle: Double) -> Double {
@@ -29,7 +29,7 @@ struct ContentView: View {
     @StateObject var clock: Clock = Clock()
     @State var bpmInput: String = ""
     @State var sliderValue: Double = 0
-    @State var startDragValue: CGPoint
+    @State var startDragValue: CGPoint = CGPoint(x:0, y:0)
     
     init() {
         _bpmInput = State(initialValue: String(clock.bpm))
@@ -61,13 +61,13 @@ struct ContentView: View {
     
     var dialDragGesture: some Gesture {
         DragGesture(minimumDistance: 0.0, coordinateSpace: .local)
-            .onChanged(dragValue in
-                    var angleDelta = angleFromDragTranslation(startDragValue, @escaped dragValue)
-                    var bpmDelta = angleToBpmValue(angle: angleDelta)
-                    var newBpm = clock.bpm + bpmDelta
-                    clock.updateTimeSignature(bpm: newBpm)
-                )
-            
+            .onChanged{ dragValue in
+                let angleDelta = angleFromDragTranslation(startPoint: startDragValue, endPoint: dragValue.location)
+                let bpmDelta = angleToBpmValue(angle: angleDelta)
+                let newBpm = clock.bpm + Int(bpmDelta)
+                clock.updateTimeSignature(bpm: newBpm)
+            }
+        
     }
     
     var body: some View {
